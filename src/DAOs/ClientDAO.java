@@ -1,5 +1,6 @@
 package DAOs;
 
+import Config.DbConnextion;
 import Models.Client;
 
 import java.sql.Connection;
@@ -10,18 +11,25 @@ public class ClientDAO {
 
     private Connection connection;
     private PreparedStatement preparedStatement;
-    public ClientDAO(Connection connection) {
-         this.connection = connection;
+
+    public ClientDAO() {
+        this.connection = new DbConnextion().getConnection();
     }
-    public void addClient(Client client) {
-        try{
-            String sql = "INSERT INTO client VALUES (?,?,?,?,?,?,?)";
-            preparedStatement=connection.prepareStatement(sql);
-        }
-        catch(NullPointerException | SQLException e){
-            throw new RuntimeException("couldnt add client because" + e.getMessage());
-        }
 
 
+    public boolean addClient(Client client) {
+        String sql = "INSERT INTO client (nom, prenom, email, telephone, conseiller_id) VALUES (?,?,?,?,?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, client.getNom());
+            preparedStatement.setString(2, client.getPrenom());
+            preparedStatement.setString(3, client.getEmail());
+            preparedStatement.setString(4, client.getTelephone());
+            preparedStatement.setInt(5, client.getConseiller());
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("couldn't add client because " + e.getMessage(), e);
+        }
+
     }
+
 }

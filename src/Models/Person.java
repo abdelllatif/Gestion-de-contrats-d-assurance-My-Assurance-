@@ -5,16 +5,12 @@ public abstract class Person {
     protected String nom;
     protected String prenom;
     protected String email;
-    protected String adresse;
     protected String telephone;
-    protected String role;
-    public Person(String nom, String prenom, String email, String adresse, String telephone, String role) {
+    public Person(String nom, String prenom, String email, String telephone) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
-        this.adresse = adresse;
         this.telephone = telephone;
-        this.role = role;
     }
     public Person() {
     }
@@ -46,13 +42,6 @@ public abstract class Person {
         this.prenom = prenom;
     }
 
-    public String getAdresse() {
-        return adresse;
-    }
-
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
-    }
 
     public String getTelephone() {
         return telephone;
@@ -62,11 +51,4 @@ public abstract class Person {
         this.telephone = telephone;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 }

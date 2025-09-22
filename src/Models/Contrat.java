@@ -4,14 +4,9 @@ public class Contrat {
     private int id;
     private String dateDebut;
     private String dateFin;
-    private enum TypeContrat{
-        AUTOMOBILE,
-        MALADI,
-        IMOBILITIE,
-    }
-    private TypeContrat typeContrat;
+    private String typeContrat;
 
-    public Contrat(int id, String dateDebut, String dateFin, TypeContrat typeContrat) {
+    public Contrat(int id, String dateDebut, String dateFin, String typeContrat) {
         this.id = id;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
@@ -40,11 +35,11 @@ public class Contrat {
         this.dateDebut = dateDebut;
     }
 
-    public TypeContrat getTypeContrat() {
+    public String getTypeContrat() {
         return typeContrat;
     }
 
-    public void setTypeContrat(TypeContrat typeContrat) {
+    public void setTypeContrat(String typeContrat) {
         this.typeContrat = typeContrat;
     }
 }
