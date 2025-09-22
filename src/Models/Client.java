@@ -2,21 +2,25 @@ package Models;
 
 import java.util.HashMap;
 
-public class Client extends Person{
-    private HashMap<Integer, String> contrats;
+public class Client extends Person {
+    private HashMap<Integer, Contrat> contrats;  // بدلنا String ب Contrat
     private String conseiller;
-    public Client(String nom, String prenom, String email, String adresse, String telephone, String role, HashMap<Integer, String> contrats, String conseiller) {
+
+    public Client(String nom, String prenom, String email, String adresse, String telephone, String role,
+                  HashMap<Integer, Contrat> contrats, String conseiller) {
         super(nom, prenom, email, adresse, telephone, role);
         this.contrats = contrats;
         this.conseiller = conseiller;
     }
+
     public Client() {
     }
-    public HashMap<Integer, String> getContrats() {
+
+    public HashMap<Integer, Contrat> getContrats() {
         return contrats;
     }
 
-    public void setContrats(HashMap<Integer, String> contrats) {
+    public void setContrats(HashMap<Integer, Contrat> contrats) {
         this.contrats = contrats;
     }
 
