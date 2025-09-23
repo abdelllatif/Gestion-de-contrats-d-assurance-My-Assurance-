@@ -5,6 +5,8 @@ import Models.Conseiller;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.HashMap;
 
 public class ConseillerDAO {
     private Connection connection;
@@ -27,4 +29,14 @@ public class ConseillerDAO {
             throw new RuntimeException("erreur lors de l'ajout du conseiller car" + e.getMessage());
         }
     }
+    public ResultSet getClients() {
+        String sql = "SELECT * FROM client";
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            return preparedStatement.executeQuery();
+        } catch (Exception e) {
+            throw new RuntimeException("Erreur lors de la récupération des clients : " + e.getMessage());
+        }
+    }
+
 }

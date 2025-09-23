@@ -1,4 +1,5 @@
 import Views.ClientMenu;
+import Views.ConseillerMenu;
 
 import java.util.Scanner;
 
@@ -23,6 +24,7 @@ public class Main {
             }
             choix = scanner.nextInt();
 
+
             switch (choix) {
                 case 1:
                     ClientMenu clientMenu = new ClientMenu();
@@ -32,7 +34,8 @@ public class Main {
                     System.out.println("=== Gestion des Contrats ===");
                     break;
                 case 3:
-                    System.out.println("=== Gestion des Conseillers ===");
+                    ConseillerMenu conseillerMenu = new ConseillerMenu();
+                    conseillerMenu.afficherMenu();
                     break;
                 case 4:
                     System.out.println("=== Gestion des Sinistres ===");

@@ -1,14 +1,17 @@
 package Services;
 
 import DAOs.ClientDAO;
+import DAOs.ConseillerDAO;
 import Models.Client;
+
+import java.sql.ResultSet;
+import java.util.HashMap;
 
 public class ClientService {
 
 
-
-    public ClientService() {}
-
+    public ClientService() {
+    }
 
 
     public Boolean addClient(Client client) {
@@ -35,6 +38,43 @@ public class ClientService {
             return true;
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+
+    public void deleteClient(int idClient) {
+        if (idClient <= 0) {
+            throw new IllegalArgumentException("Client ID must be a positive integer.");
+        }
+        try {
+            ClientDAO clientDAO = new ClientDAO();
+            clientDAO.deleteClient(idClient);
+            System.out.println("Client supprimer avec sucsess");
+        } catch( Exception e){
+          throw new RuntimeException("Erreur lors de la suppression du client : " + e.getMessage());
+        }
+    }
+
+    public Client ShowClientParNomDeFamille(String nomDeFamille){
+        HashMap<Integer, Client> clients = new HashMap<>();
+
+        try {
+            ConseillerDAO conseillerDAO = new ConseillerDAO();
+            ResultSet rs = conseillerDAO.getClients();
+            while(rs.next()){
+                int idClient = rs.getInt("id");
+                String nom = rs.getString("nom");
+                String prenom = rs.getString("prenom");
+                String email = rs.getString("email");
+                int consId = rs.getInt("conseiller_id");
+                String telephone = rs.getString("telephone");
+                clients.put(idClient, new Client(nom, prenom, email, telephone, consId));
+            }
+            return clients.values().stream().filter(client -> client.getNom().equals(nomDeFamille)).findFirst().orElse(null);
+
+        }
+        catch (Exception e) {
+            throw new RuntimeException("couldn't find client with name " + nomDeFamille + "");
         }
     }
 }

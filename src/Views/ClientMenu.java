@@ -32,10 +32,10 @@ public class ClientMenu {
               this.ajouterClient();
             break;
             case 2:
-                System.out.println("Suppression d'un client");
+                this.deleteClient();
                 break;
             case 3:
-                System.out.println("Recherche d'un client par nom de famille");
+                this.ShowClientParNomDeFamille();
                 break;
                 case 4:
                 System.out.println("Recherche d'un client par ID");
@@ -73,5 +73,33 @@ public class ClientMenu {
         Client client = new Client(nom, prenom, email, telephone, conseiller);
         ClientController clientController = new ClientController();
         clientController.addClient(client);
+    }
+
+    public void deleteClient(){
+        Scanner sc =new Scanner(System.in);
+        System.out.println(Border);
+        System.out.println("|| entrez l'ID du client ||");
+        System.out.println(Border);
+        int idClient=sc.nextInt();
+        sc.nextLine();
+        ClientService clientService = new ClientService();
+        clientService.deleteClient(idClient);
+    }
+
+    public  void ShowClientParNomDeFamille(){
+        Scanner sc =new Scanner(System.in);
+        System.out.println(Border);
+        System.out.println("|| entrez le nom de famille du client ||");
+        System.out.println(Border);
+        String nomDeFamille=sc.nextLine();
+        sc.nextLine();
+        ClientService clientService=new ClientService();
+        Client client= clientService.ShowClientParNomDeFamille(nomDeFamille);
+        System.out.println("the client with the name "+nomDeFamille+" is :");
+        System.out.println("nom : "+client.getNom());
+        System.out.println("prenom: "+client.getPrenom());
+        System.out.println("email: "+client.getEmail());
+        System.out.println("telephone: "+client.getTelephone());
+        System.out.println("conseiller: "+client.getConseiller());
     }
 }

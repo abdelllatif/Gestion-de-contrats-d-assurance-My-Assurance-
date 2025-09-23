@@ -1,9 +1,16 @@
 package Services;
 
 import DAOs.ConseillerDAO;
+import Models.Client;
 import Models.Conseiller;
 
+import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 public class ConseillerService {
+    private HashMap<Integer, String> clients = new HashMap<>();
     public ConseillerService() {}
     public void addConseiller(Conseiller conseiller) {
         try {
@@ -28,4 +35,42 @@ public class ConseillerService {
         }
 
     }
+
+    public HashMap<Integer, Client> getClients(int conseillerId) {
+        if (conseillerId <= 0) {
+            throw new IllegalArgumentException("Conseiller ID must be a positive integer.");
+        }
+
+        HashMap<Integer, Client> clients = new HashMap<>();
+
+        try {
+            ConseillerDAO conseillerDAO = new ConseillerDAO();
+            ResultSet rs = conseillerDAO.getClients();
+
+            while (rs.next()) {
+                int idClient = rs.getInt("id");
+                String nom = rs.getString("nom");
+                String prenom = rs.getString("prenom");
+                String email = rs.getString("email");
+                int consId = rs.getInt("conseiller_id");
+                String telephone = rs.getString("telephone");
+
+                clients.put(idClient, new Client(nom, prenom, email, telephone, consId));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Erreur lors de la récupération des clients : " + e.getMessage());
+        }
+
+        return clients.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue().getConseiller() == conseillerId)
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,       // <--- return the full Client
+                        (v1, v2) -> v1,
+                        HashMap::new
+                ));
+    }
+
+
 }

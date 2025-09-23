@@ -5,6 +5,7 @@ import Models.Client;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ClientDAO {
@@ -31,5 +32,17 @@ public class ClientDAO {
         }
 
     }
+
+    public boolean deleteClient(int idClient) {
+        String sql = "DELETE FROM client WHERE id = ?";
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, idClient);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("couldn't delete client because " + e.getMessage(), e);
+        }
+    }
+
 
 }

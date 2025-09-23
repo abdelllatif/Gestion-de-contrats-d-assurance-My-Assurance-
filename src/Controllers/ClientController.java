@@ -12,4 +12,8 @@ public class ClientController {
         ClientService clientService = new ClientService();
         clientService.addClient(client);
     }
+    public void deleteClient(int idClient){
+        ClientService clientService = new ClientService();
+        clientService.deleteClient(idClient);
+    }
 }
