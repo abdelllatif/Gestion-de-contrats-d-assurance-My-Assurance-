@@ -23,4 +23,9 @@ public class ConseillerController {
         ConseillerService conseillerService = new ConseillerService();
         conseillerService.deleteClient(id);
     }
+
+    public Conseiller rechercheConseiller(int id) {
+        ConseillerService conseillerService = new ConseillerService();
+        return conseillerService.rechercheConseiller(id);
+    }
 }

@@ -3,6 +3,7 @@ package Views;
 import Controllers.ConseillerController;
 import Models.Client;
 import Models.Conseiller;
+import Services.ConseillerService;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -36,6 +37,9 @@ public class ConseillerMenu {
                     case 2:
                         this.deleteConseiller();
                         break;
+                        case 3:
+                            this.rechercheConseiller();
+                            break;
                     case 4:
                         this.getClients(sc);
                 case 0:
@@ -95,5 +99,17 @@ public class ConseillerMenu {
         sc.nextLine();
         ConseillerController conseillerController = new ConseillerController();
         conseillerController.deleteConseiller(idClient);
+    }
+
+    public Conseiller rechercheConseiller() {
+
+        Scanner sc =new Scanner(System.in);
+        System.out.println(Border);
+        System.out.println("|| entrez l'ID du conseiller ||");
+        System.out.println(Border);
+        int id=sc.nextInt();
+        sc.nextLine();
+        ConseillerService conseillerService = new ConseillerService();
+        return conseillerService.rechercheConseiller(id);
     }
 }

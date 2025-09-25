@@ -5,6 +5,7 @@ public class Contrat {
     private String dateDebut;
     private String dateFin;
     private String typeContrat;
+    private int clientId;
 
     public Contrat(int id, String dateDebut, String dateFin, String typeContrat) {
         this.id = id;
@@ -42,4 +43,11 @@ public class Contrat {
     public void setTypeContrat(String typeContrat) {
         this.typeContrat = typeContrat;
     }
+    public Integer getClientId() {
+        return clientId;
+    }
+    public void setClientId(Integer client) {
+        this.clientId = client;
+    }
+
 }

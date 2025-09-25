@@ -88,6 +88,28 @@ public class ConseillerService {
 
     }
 
-    public
+    public Conseiller rechercheConseiller(int id) {
+        HashMap<Integer, Conseiller> conseillers = new HashMap<>();
+        ConseillerDAO conseillerDAO = new ConseillerDAO();
+
+        ResultSet rs = conseillerDAO.afficherAll();
+        try {
+            while (rs.next()) {
+                int idConseiller = rs.getInt("id");
+                String nom = rs.getString("nom");
+                String prenom = rs.getString("prenom");
+                String email = rs.getString("email");
+                String telephone = rs.getString("telephone");
+                conseillers.put(idConseiller, new Conseiller(nom, prenom, email, telephone));
+
+            }
+
+        }
+        catch (Exception e){
+         throw new RuntimeException("not working because of " + e.getMessage() + "");
+    }
+        return conseillers.values().stream().filter(c->c.getId()==id).findFirst().orElse(null);
+
+    }
 
 }
