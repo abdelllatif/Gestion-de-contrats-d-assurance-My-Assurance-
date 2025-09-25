@@ -72,5 +72,22 @@ public class ConseillerService {
                 ));
     }
 
+    public void deleteClient(int idClient){
+        if (idClient <= 0) {
+            throw new IllegalArgumentException("Client ID must be a positive integer.");
+        }
+        try {
+            ConseillerDAO conseillerDAO = new ConseillerDAO();
+            if(conseillerDAO.deleteConseiller(idClient)){
+                System.out.println("Client supprimer avec sucsess");
+            }
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Erreur lors de la suppression du client : " + e.getMessage());
+        }
+
+    }
+
+    public
 
 }

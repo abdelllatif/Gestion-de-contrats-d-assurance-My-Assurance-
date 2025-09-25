@@ -6,6 +6,7 @@ import Models.Conseiller;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 public class ConseillerDAO {
@@ -39,4 +40,24 @@ public class ConseillerDAO {
         }
     }
 
+    public boolean deleteConseiller(int idConseiller) {
+        String query=" delete from conseiller where id = ?";
+        try{
+           preparedStatement=connection.prepareStatement(query);
+           preparedStatement.setInt(1,idConseiller);
+           return preparedStatement.executeUpdate()>0;
+        }
+        catch(Exception e){
+            throw new RuntimeException("Erreur lors de la suppression du conseiller : " + e.getMessage());
+        }
+    }
+     public  ResultSet afficherAll(){
+        String query="select * from conseiller";
+        try{
+            preparedStatement=connection.prepareStatement(query);
+            return preparedStatement.executeQuery(query);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+     }
 }

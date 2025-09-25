@@ -33,6 +33,9 @@ public class ConseillerMenu {
                 case 1:
                     this.ajouterConseiller(sc);
                     break;
+                    case 2:
+                        this.deleteConseiller();
+                        break;
                     case 4:
                         this.getClients(sc);
                 case 0:
@@ -81,5 +84,16 @@ public class ConseillerMenu {
 
 
         System.out.println(Border);
+    }
+
+    public void deleteConseiller(){
+        Scanner sc =new Scanner(System.in);
+        System.out.println(Border);
+        System.out.println("|| entrez l'ID du conseiller ||");
+        System.out.println(Border);
+        int idClient=sc.nextInt();
+        sc.nextLine();
+        ConseillerController conseillerController = new ConseillerController();
+        conseillerController.deleteConseiller(idClient);
     }
 }
