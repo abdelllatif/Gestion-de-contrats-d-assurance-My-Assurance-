@@ -1,6 +1,7 @@
 package DAOs;
 
 import Config.DbConnextion;
+import Models.Client;
 import Models.Contrat;
 
 import java.sql.*;
@@ -37,22 +38,33 @@ public class ContractDAO {
         }
     }
 
-    public ResultSet afficherAll() throws SQLException {
-        String sql = "SELECT * FROM Contrat";
+    public ResultSet afficherAll(Integer ClientId) throws SQLException {
+        String sql = "SELECT * FROM Contrat where client_id = ?";
         preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, ClientId);
         return preparedStatement.executeQuery();
     }
 
-    // Optional: method to convert ResultSet row to Contrat object
-    public Contrat mapToContrat(ResultSet rs) throws SQLException {
-        Contrat contrat = new Contrat();
-        contrat.setId(rs.getInt("id"));
-        contrat.setDateDebut(rs.getTimestamp("dateDebut"));
-        contrat.setDateFin(rs.getTimestamp("dateFin"));
-        // convert String from DB back to enum
-        contrat.setTypeContrat(Contrat.TypeContrat.valueOf(rs.getString("typeContrat")));
-        contrat.setClientId(rs.getInt("client_id"));
-        if (rs.wasNull()) contrat.setClientId(null);
-        return contrat;
+    public Contrat findById(int id) {
+        String sql = "SELECT * FROM Contrat WHERE id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Contrat.TypeContrat type = Contrat.TypeContrat.valueOf(rs.getString("typeContrat"));
+
+                return new Contrat(
+                        rs.getInt("id"),
+                        rs.getTimestamp("dateDebut"),
+                        rs.getTimestamp("dateFin"),
+                        type,
+                        rs.getInt("client_id")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
+
 }

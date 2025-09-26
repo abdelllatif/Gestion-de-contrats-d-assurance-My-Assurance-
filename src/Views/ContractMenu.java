@@ -5,6 +5,8 @@ import Models.Contrat;
 import Services.ContractService;
 
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class ContractMenu {
@@ -34,22 +36,24 @@ public class ContractMenu {
             sc.nextLine();
 
             switch (choix) {
-                case 1 :
+                case 1:
                     ajouterContrat();
                     break;
-                    case 2 :
+                    case 2:
+                    afficherContratParId();
                     break;
-                    case 3 :
+                    case 3:
                     supprimerContrat();
                     break;
-                    case 4 :
+                    case 4:
                     afficherContratsParClient();
                     break;
-                    case 0 :
+                    case 0:
                     System.out.println("Au revoir !");
                     break;
-                    default :
+                    default:
                     System.out.println("Choix invalide, veuillez recommencer.");
+
             }
         } while (choix != 0);
     }
@@ -60,8 +64,16 @@ public class ContractMenu {
         System.out.println("|| Entrez les informations du contrat ||");
         System.out.println(Border);
 
-        System.out.print("Type de contrat : ");
-        String type = sc.nextLine();
+        System.out.print("Type de contrat (MALADIE, VOITURE, MAISON) : ");
+        String typeStr = sc.nextLine().toUpperCase();
+
+        Contrat.TypeContrat type;
+        try {
+            type = Contrat.TypeContrat.valueOf(typeStr);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Type de contrat invalide !");
+            return;
+        }
 
         System.out.print("Date début (format: yyyy-MM-dd HH:mm:ss) : ");
         String debutStr = sc.nextLine();
@@ -80,7 +92,6 @@ public class ContractMenu {
 
         contractController.ajouterContrat(contrat);
     }
-
 
     private void supprimerContrat() {
         Scanner sc = new Scanner(System.in);
@@ -103,6 +114,43 @@ public class ContractMenu {
         int clientId = sc.nextInt();
         sc.nextLine();
 
-       // contractController.afficherContratsParClient(clientId);
+        List<Contrat> contrats = contractController.afficherContrats(clientId);
+
+        if (contrats == null || contrats.isEmpty()) {
+            System.out.println("Aucun contrat trouvé pour le client avec l'ID " + clientId);
+        } else {
+            System.out.println("Contrats du client " + clientId + " :");
+            for (Contrat c : contrats) {
+                System.out.println("----------------------------");
+                System.out.println("ID Contrat : " + c.getId());
+                System.out.println("Type : " + c.getTypeContrat());
+                System.out.println("Date Début : " + c.getDateDebut());
+                System.out.println("Date Fin : " + c.getDateFin());
+            }
+        }
     }
+
+
+
+
+    public void afficherContratParId() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Entrez l'ID du contrat: ");
+        int id = sc.nextInt();
+
+        Optional<Contrat> contratOpt = contractController.getContratById(id);
+
+        if (contratOpt.isPresent()) {
+            System.out.println("Informations du contrat :");
+            System.out.println(contratOpt.get().getId());
+            System.out.println(contratOpt.get().getTypeContrat());
+            System.out.println(contratOpt.get().getDateDebut());
+            System.out.println(contratOpt.get().getDateFin());
+            System.out.println(contratOpt.get().getClientId());
+        } else {
+            System.out.println("Aucun contrat trouvé avec l'ID " + id);
+        }
+    }
+
+
 }

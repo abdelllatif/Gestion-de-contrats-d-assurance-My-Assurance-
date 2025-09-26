@@ -6,6 +6,9 @@ import Models.Contrat;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class ContractService {
     private final ContractDAO contratDAO;
@@ -26,8 +29,7 @@ public class ContractService {
             throw new IllegalArgumentException("La date de début doit être avant la date de fin");
         }
 
-        String type = contrat.getTypeContrat();
-        if (type == null || type.trim().isEmpty()) {
+        if (contrat.getTypeContrat() == null) {
             throw new IllegalArgumentException("Le type de contrat est obligatoire");
         }
 
@@ -45,7 +47,26 @@ public class ContractService {
         return contratDAO.deleteById(id);
     }
 
-    public ResultSet afficherAll() throws SQLException {
-        return contratDAO.afficherAll();
+    public List<Contrat> afficherAll(Integer clientId) throws SQLException {
+        ResultSet rs = contratDAO.afficherAll(clientId);
+        List<Contrat> contrats = new ArrayList<>();
+        while (rs.next()) {
+            Contrat contrat = new Contrat(
+                    rs.getInt("id"),
+                    rs.getTimestamp("dateDebut"),
+                    rs.getTimestamp("dateFin"),
+                    Contrat.TypeContrat.valueOf(rs.getString("typeContrat")),
+                    rs.getInt("client_id")
+            );
+            contrats.add(contrat);
+        }
+        return contrats;
     }
+
+    public Optional<Contrat> getContratById(int id) {
+        Contrat contrat = contratDAO.findById(id);
+        return Optional.ofNullable(contrat); // Optional géré ici
+    }
+
+
 }
