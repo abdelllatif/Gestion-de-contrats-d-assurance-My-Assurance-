@@ -1,13 +1,15 @@
 package Models;
 
+import java.sql.Date;
+
 public class Contrat {
     private int id;
-    private String dateDebut;
-    private String dateFin;
+    private Date dateDebut;
+    private Date dateFin;
     private String typeContrat;
     private int clientId;
 
-    public Contrat(int id, String dateDebut, String dateFin, String typeContrat) {
+    public Contrat(int id, Date dateDebut, Date dateFin, String typeContrat) {
         this.id = id;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
@@ -20,19 +22,19 @@ public class Contrat {
         return id;
     }
 
-    public String getDateFin() {
+    public Date getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(String dateFin) {
+    public void setDateFin(Date dateFin) {
         this.dateFin = dateFin;
     }
 
-    public String getDateDebut() {
+    public Date getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(String dateDebut) {
+    public void setDateDebut(Date dateDebut) {
         this.dateDebut = dateDebut;
     }
 

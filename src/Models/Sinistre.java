@@ -1,16 +1,24 @@
 package Models;
+
+import java.sql.Date;
+
 public class Sinistre {
+
+    public enum TypeSinistre {
+        ACCIDENT_VOITURE,
+        ACCIDENT_MAISON,
+        MALADIE
+    }
+
     private int id;
-    private String typeSinistre;
-    private java.time.LocalDateTime dateTime;
+    private TypeSinistre typeSinistre;
+    private Date dateTime;
     private double cout;
     private String description;
     private int contratId;
 
-    public Sinistre() {
-    }
 
-    public Sinistre(String typeSinistre, java.time.LocalDateTime dateTime, double cout, String description, int contratId) {
+    public Sinistre(TypeSinistre typeSinistre, Date dateTime, double cout, String description, int contratId) {
         this.typeSinistre = typeSinistre;
         this.dateTime = dateTime;
         this.cout = cout;
@@ -18,28 +26,24 @@ public class Sinistre {
         this.contratId = contratId;
     }
 
-
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
-    public String getTypeSinistre() {
+    public TypeSinistre getTypeSinistre() {
         return typeSinistre;
     }
 
-    public void setTypeSinistre(String typeSinistre) {
+    public void setTypeSinistre(TypeSinistre typeSinistre) {
         this.typeSinistre = typeSinistre;
     }
 
-    public java.time.LocalDateTime getDateTime() {
+    public Date getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(java.time.LocalDateTime dateTime) {
+    public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
 
@@ -66,5 +70,4 @@ public class Sinistre {
     public void setContratId(int contratId) {
         this.contratId = contratId;
     }
-
 }
