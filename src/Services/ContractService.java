@@ -3,21 +3,20 @@ package Services;
 import DAOs.ContractDAO;
 import Models.Contrat;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 public class ContractService {
     private final ContractDAO contratDAO;
 
-    public ContractService(ContractDAO contratDAO) {
-        this.contratDAO = contratDAO;
+    public ContractService() {
+        this.contratDAO = new ContractDAO();
     }
 
-    // Ajouter un contrat avec validation
     public boolean addContrat(Contrat contrat) throws SQLException {
-        Date debut = contrat.getDateDebut();
-        Date fin = contrat.getDateFin();
+        Timestamp debut = contrat.getDateDebut();
+        Timestamp fin = contrat.getDateFin();
 
         if (debut == null || fin == null) {
             throw new IllegalArgumentException("Les dates ne peuvent pas être nulles");
@@ -32,7 +31,7 @@ public class ContractService {
             throw new IllegalArgumentException("Le type de contrat est obligatoire");
         }
 
-        if (contrat.getClientId() <= 0) {
+        if (contrat.getClientId() == null || contrat.getClientId() <= 0) {
             throw new IllegalArgumentException("L'ID du client doit être valide");
         }
 

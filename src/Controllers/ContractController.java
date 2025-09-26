@@ -3,7 +3,6 @@ package Controllers;
 import Models.Contrat;
 import Services.ContractService;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -14,52 +13,56 @@ public class ContractController {
         this.contratService = contratService;
     }
 
-    // Ajouter un contrat
     public void ajouterContrat(Contrat contrat) {
         try {
-            boolean added = contratService.addContrat(contrat);
-            if (added) {
-                System.out.println("Contrat ajouté avec succès !");
+            boolean success = contratService.addContrat(contrat);
+            if (success) {
+                System.out.println(" Contrat ajouté avec succès !");
             } else {
-                System.out.println("Échec lors de l'ajout du contrat.");
+                System.out.println(" Échec de l'ajout du contrat.");
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("Erreur de validation : " + e.getMessage());
+            System.out.println(" Erreur de validation : " + e.getMessage());
         } catch (SQLException e) {
-            System.out.println("Erreur SQL : " + e.getMessage());
+            System.out.println(" Erreur SQL : " + e.getMessage());
         }
     }
 
+    // Supprimer un contrat
     public void supprimerContrat(int id) {
         try {
-            boolean deleted = contratService.deleteContrat(id);
-            if (deleted) {
-                System.out.println("Contrat supprimé avec succès !");
+            boolean success = contratService.deleteContrat(id);
+            if (success) {
+                System.out.println(" Contrat supprimé avec succès !");
             } else {
-                System.out.println("Aucun contrat trouvé avec cet ID.");
+                System.out.println(" Aucun contrat trouvé avec l'ID : " + id);
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("Erreur de validation : " + e.getMessage());
+            System.out.println(" Erreur de validation : " + e.getMessage());
         } catch (SQLException e) {
-            System.out.println("Erreur SQL : " + e.getMessage());
+            System.out.println(" Erreur SQL : " + e.getMessage());
         }
     }
 
     // Afficher tous les contrats
     public void afficherContrats() {
-        try {
-            ResultSet rs = contratService.afficherAll();
+        try (ResultSet rs = contratService.afficherAll()) {
+            System.out.println(" Liste des contrats :");
             while (rs.next()) {
-                System.out.println(
-                        "ID: " + rs.getInt("id") +
-                                ", Date Début: " + rs.getDate("dateDebut") +
-                                ", Date Fin: " + rs.getDate("dateFin") +
-                                ", Type: " + rs.getString("typeContrat") +
-                                ", Client ID: " + rs.getInt("clientId")
-                );
+                int id = rs.getInt("id");
+                String type = rs.getString("typeContrat");
+                String debut = rs.getTimestamp("dateDebut").toString();
+                String fin = rs.getTimestamp("dateFin").toString();
+                int clientId = rs.getInt("clientId");
+
+                System.out.println("ID: " + id +
+                        " | Type: " + type +
+                        " | Début: " + debut +
+                        " | Fin: " + fin +
+                        " | ClientID: " + clientId);
             }
         } catch (SQLException e) {
-            System.out.println("Erreur SQL : " + e.getMessage());
+            System.out.println("⚠️ Erreur SQL : " + e.getMessage());
         }
     }
 }

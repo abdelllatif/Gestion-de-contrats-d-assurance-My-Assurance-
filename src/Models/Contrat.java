@@ -1,55 +1,44 @@
 package Models;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Contrat {
-    private int id;
-    private Date dateDebut;
-    private Date dateFin;
-    private String typeContrat;
-    private int clientId;
 
-    public Contrat(int id, Date dateDebut, Date dateFin, String typeContrat) {
+    public enum TypeContrat {
+        MALADIE,
+        VOITURE,
+        MAISON
+    }
+
+    private int id;
+    private Timestamp dateDebut;
+    private Timestamp dateFin;
+    private TypeContrat typeContrat; // keep as enum
+    private Integer clientId;
+
+    public Contrat() {}
+
+    // Constructor using enum type directly
+    public Contrat(int id, Timestamp dateDebut, Timestamp dateFin, TypeContrat typeContrat, Integer clientId) {
         this.id = id;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.typeContrat = typeContrat;
-    }
-    public Contrat() {
-    }
-
-    public int getId() {
-        return id;
+        this.clientId = clientId;
     }
 
-    public Date getDateFin() {
-        return dateFin;
-    }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public void setDateFin(Date dateFin) {
-        this.dateFin = dateFin;
-    }
+    public Timestamp getDateDebut() { return dateDebut; }
+    public void setDateDebut(Timestamp dateDebut) { this.dateDebut = dateDebut; }
 
-    public Date getDateDebut() {
-        return dateDebut;
-    }
+    public Timestamp getDateFin() { return dateFin; }
+    public void setDateFin(Timestamp dateFin) { this.dateFin = dateFin; }
 
-    public void setDateDebut(Date dateDebut) {
-        this.dateDebut = dateDebut;
-    }
+    public TypeContrat getTypeContrat() { return typeContrat; } // return enum
+    public void setTypeContrat(TypeContrat typeContrat) { this.typeContrat = typeContrat; }
 
-    public String getTypeContrat() {
-        return typeContrat;
-    }
-
-    public void setTypeContrat(String typeContrat) {
-        this.typeContrat = typeContrat;
-    }
-    public Integer getClientId() {
-        return clientId;
-    }
-    public void setClientId(Integer client) {
-        this.clientId = client;
-    }
-
+    public Integer getClientId() { return clientId; }
+    public void setClientId(Integer clientId) { this.clientId = clientId; }
 }

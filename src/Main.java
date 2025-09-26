@@ -1,5 +1,6 @@
 import Views.ClientMenu;
 import Views.ConseillerMenu;
+import Views.ContractMenu;
 
 import java.util.Scanner;
 
@@ -31,8 +32,8 @@ public class Main {
                     clientMenu.afficherMenu();
                     break;
                 case 2:
-                    System.out.println("=== Gestion des Contrats ===");
-                    break;
+                    ContractMenu contractMenu = new ContractMenu();
+                    contractMenu.afficherMenu();
                 case 3:
                     ConseillerMenu conseillerMenu = new ConseillerMenu();
                     conseillerMenu.afficherMenu();
