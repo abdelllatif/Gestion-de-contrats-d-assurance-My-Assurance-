@@ -2,7 +2,7 @@ package Models;
 
 import java.util.HashMap;
 
-public class Client extends Person {
+ public class Client extends Person {
     private Integer conseiller;
 
     public Client(String nom, String prenom, String email, String telephone, Integer conseiller) {

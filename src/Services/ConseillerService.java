@@ -66,7 +66,7 @@ public class ConseillerService {
                 .filter(entry -> entry.getValue().getConseiller() == conseillerId)
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
-                        Map.Entry::getValue,       // <--- return the full Client
+                        Map.Entry::getValue,
                         (v1, v2) -> v1,
                         HashMap::new
                 ));

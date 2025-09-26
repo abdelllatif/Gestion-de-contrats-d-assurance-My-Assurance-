@@ -1,6 +1,7 @@
 package Models;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Sinistre {
 
@@ -12,23 +13,35 @@ public class Sinistre {
 
     private int id;
     private TypeSinistre typeSinistre;
-    private Date dateTime;
+    private Timestamp dateTime;
     private double cout;
     private String description;
     private int contratId;
 
-
-    public Sinistre(TypeSinistre typeSinistre, Date dateTime, double cout, String description, int contratId) {
+    public Sinistre(int id,TypeSinistre typeSinistre, Timestamp dateTime, double cout, String description, int contratId) {
+        this.id = id;
         this.typeSinistre = typeSinistre;
         this.dateTime = dateTime;
         this.cout = cout;
         this.description = description;
         this.contratId = contratId;
     }
+    public Sinistre(TypeSinistre typeSinistre, Timestamp dateTime, double cout, String description, int contratId) {
+        this.typeSinistre = typeSinistre;
+        this.dateTime = dateTime;
+        this.cout = cout;
+        this.description = description;
+        this.contratId = contratId;
+    }
+    public Sinistre() {}
 
     public int getId() {
         return id;
     }
+    public void setId(int id) {
+        this.id = id;
+    }
+
 
 
     public TypeSinistre getTypeSinistre() {
@@ -39,11 +52,11 @@ public class Sinistre {
         this.typeSinistre = typeSinistre;
     }
 
-    public Date getDateTime() {
+    public Timestamp getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(Date dateTime) {
+    public void setDateTime(Timestamp dateTime) {
         this.dateTime = dateTime;
     }
 

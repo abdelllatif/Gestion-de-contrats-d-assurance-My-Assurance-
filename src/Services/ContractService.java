@@ -65,7 +65,7 @@ public class ContractService {
 
     public Optional<Contrat> getContratById(int id) {
         Contrat contrat = contratDAO.findById(id);
-        return Optional.ofNullable(contrat); // Optional géré ici
+        return Optional.ofNullable(contrat);
     }
 
 

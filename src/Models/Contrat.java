@@ -13,12 +13,11 @@ public class Contrat {
     private int id;
     private Timestamp dateDebut;
     private Timestamp dateFin;
-    private TypeContrat typeContrat; // keep as enum
+    private TypeContrat typeContrat;
     private Integer clientId;
 
     public Contrat() {}
 
-    // Constructor using enum type directly
     public Contrat(int id, Timestamp dateDebut, Timestamp dateFin, TypeContrat typeContrat, Integer clientId) {
         this.id = id;
         this.dateDebut = dateDebut;

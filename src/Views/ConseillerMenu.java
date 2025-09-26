@@ -32,7 +32,7 @@ public class ConseillerMenu {
             sc.nextLine();
             switch (choix) {
                 case 1:
-                    this.ajouterConseiller(sc);
+                    this.ajouterConseiller();
                     break;
                     case 2:
                         this.deleteConseiller();
@@ -41,7 +41,7 @@ public class ConseillerMenu {
                             this.rechercheConseiller();
                             break;
                     case 4:
-                        this.getClients(sc);
+                        this.getClients();
                 case 0:
                     System.out.println("Au revoir !");
                     break;
@@ -51,7 +51,8 @@ public class ConseillerMenu {
         } while (choix != 0);
     }
 
-    public void ajouterConseiller(Scanner sc){
+    public void ajouterConseiller(){
+        Scanner sc =new Scanner(System.in);
         System.out.println(Border);
         System.out.println("|| entrez les informations du conseiller ||");
         System.out.println(Border);
@@ -69,7 +70,8 @@ public class ConseillerMenu {
 
     }
 
-    public void getClients(Scanner sc) {
+    public void getClients() {
+        Scanner sc =new Scanner(System.in);
         System.out.println(Border);
         System.out.print("Entrez l'ID du conseiller : ");
         int id = sc.nextInt();

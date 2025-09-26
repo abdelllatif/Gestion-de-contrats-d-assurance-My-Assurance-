@@ -1,6 +1,9 @@
+import Controllers.SinistreController;
+import DAOs.SinistreDAO;
 import Views.ClientMenu;
 import Views.ConseillerMenu;
 import Views.ContractMenu;
+import Views.SinistreMenu;
 
 import java.util.Scanner;
 
@@ -39,7 +42,8 @@ public class Main {
                     conseillerMenu.afficherMenu();
                     break;
                 case 4:
-                    System.out.println("=== Gestion des Sinistres ===");
+                    SinistreMenu sinistreMenu = new SinistreMenu();
+                    sinistreMenu.afficherMenu();
                     break;
                 case 0:
                     System.out.println("Au revoir !");
